@@ -60,6 +60,51 @@ module.exports = {
         }
     },
 
+
+    info_account_member: async function (req, res) {
+        try {
+            const userid = req.params.id;
+            console.log("userid", userid);
+
+            const member = await Accountbyemail.find({
+                where: { emailAccountid: userid },
+            });
+
+            let accounts = null;
+            
+            if(member.length > 0) {
+                for(let member1 of member) {
+                    accounts = await Account.find({ where: { id: member1.useremailAccountid} }).populate('accountid');
+                }
+            }
+            
+            return res.view("viewMemberAccount", {
+                all: userid,
+                member: accounts,
+            });
+        } catch (err) {
+            // .then((data)=>{
+            //     console.log('jgvhgvh',data);
+            //     res.view('dashboard', {  accountid: data })
+            // })
+            // .then( data => {
+            //     console.log('jgvhgvh',data);
+            //     res.view('dashboard', {  accountid: data })
+            //     // await User.find({})
+            //     //     .then(result => {
+
+            //     //         console.log("data", data)
+
+            //     //         res.render('dashboard', {  accountid: data, result: result })
+
+            //     //     })
+            //         // .catch(err => {
+            //         //     console.log(err);
+            //         // })
+            // })
+            console.log(err);
+        }
+    },
     addUserEmailPage: async (req, res) => {
         const id = req.params.id;
 

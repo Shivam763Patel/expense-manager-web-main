@@ -40,6 +40,9 @@ module.exports.routes = {
   'get /dashboarduser': { view: 'dashboard'},
   'get /dashboarduser/:id': 'AccountController.info_account',
 
+  // //View member accounts
+  'get /dashboarduser/viewMembers/:id': 'AccountController.info_account_member',
+
   // //List of transaction for account
   // 'get /dashboarduser/tr/:id': 'TransactionController.viewTranscation',
 

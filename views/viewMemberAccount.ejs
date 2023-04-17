@@ -9,6 +9,8 @@
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
     <!-- Our Custom CSS -->
    <style>
 
@@ -176,6 +178,11 @@ ul ul a {
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"> <a href="/dashboarduser/<%= all %>"> Home </a> </li>
+    <li class="breadcrumb-item active"> Transaction List of member account</li>
+    </ol>
 <body>
 
 
@@ -187,50 +194,7 @@ ul ul a {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     
     <div class="wrapper">
-      <!-- Sidebar -->
-      <nav id="sidebar">
-          <div class="sidebar-header">
-              <h3> Expense Manager </h3>
-          </div>
 
-          <div>
-            <img src="<%= profile.userProfile %>" class="rounded-circle" alt="Cinque Terre" width="150px" height="150px">
-          </div>
-  
-          <ul class="list-unstyled components">
-              <p><%= profile.username %> </p>
-
-              <li class="sec">
-                <a href="/dashboarduser/viewMembers/<%= all%> " aria-expanded="false" class="ff">View Member Account</a>
-              
-            </li>
-
-
-            <br>
-              <li class="active">
-                  <a href="/dashboarduser/adduseraccount/<%= all%> " aria-expanded="false" class="ff">Add new account</a>
-                
-              </li>
-
-              <li class="sec">
-                <a href="/dashboarduser/edituserprofile/<%= all%> " aria-expanded="false" class="ff">Edit Profile </a>
-              
-            </li>
-
-
-            <li class="active">
-                <a href="/dashboarduser/chnagePassword/<%= all%> " aria-expanded="false" class="ff">Change Password </a>
-              
-            </li>
-
-              <li class="sec">
-                <a href="/dashboarduser/logout" aria-expanded="false" class="get user"> Logout </a>
-              
-            </li>
-
-           
-          </ul>
-      </nav>
 
       <main>
     <div class="">
@@ -258,49 +222,46 @@ ul ul a {
 
 <div class="container">
 
-    <h1>Owner</h1>
-    <% 
-     
-    if(accountid.length)  { %> 
-       <div class="row">
-
-       <% for(let data of accountid)  { %>
-           <div class="col-4" >
-
-               <div class="account">
-                   <h3 class="border-bottom  mb-3"> <%= data.accountname %> (Bal <%= data.accountBalance %>) </h3>
-                   
-     
-                   <div class="my-2 text-center">
-
-                       <a href="/dashboarduser/edituseraccount/<%= data.id %> " class="btn btn-outline-success" id="edit1" > Edit </a>
-
-                       <a href="/dashboarduser/tr/<%= data.id %> " class="btn btn-outline-info"> View </a>
-
-                         <form class="d-inline" action="/dashboarduser/deleteuseraccount/<%= data.id %>" onclick="return confirm('Are you want to delete this account')" method="get"> 
-                           <input type="submit" value="Delete" class="btn btn-outline-danger" > 
-
-                           <br> </br>
-                       </form>
-
-                           <a href="/dashboarduser/addtransactionToaccount/<%= data.id %> " class="btn btn-outline-primary"> Add transaction </a>
-                           <br></br>
-       
-                           <a href="/dashboarduser/adduserByemail/<%= data.id %> " class="btn btn-outline-success"> Add account by email </a>
-
-                           
    
-                   </div>
-               </div>
-           </div>
-       <% } %> 
-   </div>
-       <% }  else { %>
-   <div> No account available </div>
-   <% } %>    
+<% if(member != null) { %>
+    <h1>Members</h1>
 
-   
-   
+    <% for(let data of member) { %>
+        <div class="col-4">
+
+            <div class="account">
+                <h3 class="border-bottom  mb-3">
+                    <%= data.accountname %> (Bal <%= data.accountBalance %>)
+                </h3>
+
+
+                <div class="my-2 text-center">
+
+                    <!-- <a href="/dashboarduser/edituseraccount/<%= data.id %> " class="btn btn-outline-success" id="edit1">
+                        Edit </a> -->
+
+                    <a href="/dashboarduser/tr/<%= data.id %> " class="btn btn-outline-info"> View transaction </a> </div> 
+
+
+                    <a href="/dashboarduser/addtransactionToaccount/<%= data.id %> " class="btn btn-outline-primary">
+                        Add transaction </a>
+                    <br></br>
+
+              
+
+                    <h4> (<%= data.accountid.email %>) </h4>
+
+
+                </div>
+            </div>
+        </div>
+    <% } %>
+<% } %>
+
+
+
+
+
 </div>
     
          </div>
